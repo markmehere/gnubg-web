@@ -1768,15 +1768,15 @@ FormatMoveHint(char *sz, const matchstate * pms, movelist * pml,
     if (i && !fRankKnown)
         strcat(sz, "   ??  ");
     else
-        sprintf(pc = strchr(sz, 0), " %4i. ", i + 1);
+        sprintf(pc = strchr(sz, 0), " HINT-%i: ", i + 1);
 
     /* eval */
 
     sprintf(pc = strchr(sz, 0),
-            "%-14s   %-28s %s: ",
-            FormatEval(szTemp, &pml->amMoves[i].esMove),
+            "%-28s # %-14s%s: ",
             FormatMove(szMove, pms->anBoard,
                        pml->amMoves[i].anMove),
+            FormatEval(szTemp, &pml->amMoves[i].esMove),
             (!pms->nMatchTo || (pms->nMatchTo && !fOutputMWC)) ? _("Eq.") : _("MWC"));
 
     /* equity or mwc for move */

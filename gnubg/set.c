@@ -2731,8 +2731,8 @@ CommandSetJacoby(char *sz)
 {
 
     if (SetToggle("jacoby", &fJacoby, sz,
-                  _("Will use the Jacoby rule for money sessions."),
-                  _("Will not use the Jacoby rule for money sessions.")))
+                  _("Will use the Jacoby rule for money sessions and matches."),
+                  _("Will not use the Jacoby rule for money sessions and matches.")))
         return;
 
     if (fJacoby && !ms.fCubeUse)

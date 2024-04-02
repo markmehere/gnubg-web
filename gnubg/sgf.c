@@ -2422,7 +2422,7 @@ CommandSavePosition(char *sz)
     pmgi->g.anScore[1] = ms.anScore[1];
     pmgi->g.fCrawford = fAutoCrawford && ms.nMatchTo > 1;
     pmgi->g.fCrawfordGame = ms.fCrawford;
-    pmgi->g.fJacoby = ms.fJacoby && !ms.nMatchTo;
+    pmgi->g.fJacoby = ms.fJacoby;
     pmgi->g.fWinner = -1;
     pmgi->g.nPoints = 0;
     pmgi->g.fResigned = FALSE;

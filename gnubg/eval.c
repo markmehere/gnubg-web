@@ -3222,7 +3222,7 @@ SetCubeInfoMoney(cubeinfo * pci, const int nCube, const int fCubeOwner,
 
 extern int
 SetCubeInfoMatch(cubeinfo * pci, const int nCube, const int fCubeOwner,
-                 const int fMove, const int nMatchTo, const int anScore[2], const int fCrawford, const bgvariation bgv)
+                 const int fMove, const int nMatchTo, const int anScore[2], const int fCrawford, const int fJacoby, const bgvariation bgv)
 {
 
     if (nCube < 1 || fCubeOwner < -1 || fCubeOwner > 1 || fMove < 0 || fMove > 1 || nMatchTo < 1 || anScore[0] >= nMatchTo || anScore[1] >= nMatchTo) { /* FIXME also illegal if nCube is not a power of 2 */
@@ -3233,7 +3233,8 @@ SetCubeInfoMatch(cubeinfo * pci, const int nCube, const int fCubeOwner,
     pci->nCube = nCube;
     pci->fCubeOwner = fCubeOwner;
     pci->fMove = fMove;
-    pci->fJacoby = pci->fBeavers = FALSE;
+    pci->fJacoby = fJacoby;
+    pci->fBeavers = FALSE;
     pci->nMatchTo = nMatchTo;
     pci->anScore[0] = anScore[0];
     pci->anScore[1] = anScore[1];
@@ -3273,7 +3274,7 @@ SetCubeInfo(cubeinfo * pci, const int nCube, const int fCubeOwner,
 {
 
     return nMatchTo ? SetCubeInfoMatch(pci, nCube, fCubeOwner, fMove,
-                                       nMatchTo, anScore, fCrawford, bgv) :
+                                       nMatchTo, anScore, fCrawford, fJacoby, bgv) :
         SetCubeInfoMoney(pci, nCube, fCubeOwner, fMove, fJacoby, fBeavers, bgv);
 }
 
@@ -4035,7 +4036,7 @@ EvalEfficiency(const TanBoard anBoard, positionclass pc)
 
         /* FIXME: should CLASS_CRASHED be handled differently? */
 
-        /* FIXME: use Øystein's values published in rec.games.backgammon,
+        /* FIXME: use ï¿½ystein's values published in rec.games.backgammon,
          * or work some other semiempirical values */
 
         /* FIXME: very important: use opponents inputs as well */

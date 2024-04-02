@@ -427,7 +427,7 @@ extern int
 
 extern int
  SetCubeInfoMatch(cubeinfo * pci, const int nCube, const int fCubeOwner,
-                 const int fMove, const int nMatchTo, const int anScore[2], const int fCrawford, const bgvariation bgv);
+                 const int fMove, const int nMatchTo, const int anScore[2], const int fCrawford, const int fJacoby, const bgvariation bgv);
 
 extern int
  SetCubeInfo(cubeinfo * pci, const int nCube, const int fCubeOwner,

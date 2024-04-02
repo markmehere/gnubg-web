@@ -312,7 +312,7 @@ ApplyMoveRecord(matchstate * pms, const listOLD * plGame, const moverecord * pmr
 
         if ((n = GameStatus((ConstTanBoard) pms->anBoard, pms->bgv))) {
 
-            if (pms->fJacoby && pms->fCubeOwner == -1 && !pms->nMatchTo)
+            if (pms->fJacoby && pms->fCubeOwner == -1)
                 /* gammons do not count on a centred cube during money
                  * sessions under the Jacoby rule */
                 n = 1;
@@ -330,7 +330,13 @@ ApplyMoveRecord(matchstate * pms, const listOLD * plGame, const moverecord * pmr
     case MOVE_RESIGN:
         pms->gs = GAME_RESIGNED;
         pmgi = &pmrx->g;
-        pmgi->nPoints = pms->nCube * (pms->fResigned = pmr->r.nResigned);
+        if (pms->fJacoby && pms->fCubeOwner == -1 && pms->nCube) {
+            pmgi->nPoints = 1;
+            pms->fResigned = 1;
+        }
+        else {
+            pmgi->nPoints = pms->nCube * (pms->fResigned = pmr->r.nResigned);
+        }
         pmgi->fWinner = !pmr->fPlayer;
         pmgi->fResigned = TRUE;
 
@@ -785,7 +791,7 @@ NewGame(void)
     pmr->g.anScore[1] = ms.anScore[1];
     pmr->g.fCrawford = fAutoCrawford && ms.nMatchTo > 1;
     pmr->g.fCrawfordGame = ms.fCrawford;
-    pmr->g.fJacoby = ms.fJacoby && !ms.nMatchTo;
+    pmr->g.fJacoby = ms.fJacoby;
     pmr->g.fWinner = -1;
     pmr->g.nPoints = 0;
     pmr->g.fResigned = FALSE;
@@ -1711,7 +1717,7 @@ NextTurn(int fPlayNext)
         xmovegameinfo *pmgi = &pmr->g;
         int n;
 
-        if (ms.fJacoby && ms.fCubeOwner == -1 && !ms.nMatchTo)
+        if (ms.fJacoby && ms.fCubeOwner == -1)
             /* gammons do not count on a centred cube during money
              * sessions under the Jacoby rule */
             n = 1;
@@ -4019,7 +4025,7 @@ SetMatchID(const char *szMatchID)
     pmr->g.anScore[1] = ms.anScore[1];
     pmr->g.fCrawford = fAutoCrawford && ms.nMatchTo > 1;
     pmr->g.fCrawfordGame = ms.fCrawford;
-    pmr->g.fJacoby = ms.fJacoby && !ms.nMatchTo;
+    pmr->g.fJacoby = ms.fJacoby;
     pmr->g.fWinner = -1;
     pmr->g.nPoints = 0;
     pmr->g.fResigned = FALSE;
